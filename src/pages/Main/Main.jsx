@@ -25,8 +25,8 @@ const Main = () => {
             <div className="main">
                 <div className="container">
                     <div className="main__inner">
-                        <Carousel showArrows={true} showIndicators={false} dynamicHeight={false} emulateTouch={true} showStatus={false}>
-                            {items?.map(slide => <Slide slide={slide}/>)}
+                        <Carousel showArrows={true} showIndicators={false} dynamicHeight={false} emulateTouch={true} showStatus={false} showThumbs={false}>
+                            {items?.map(slide => <Slide key={slide._id} slide={slide}/>)}
                         </Carousel>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState} from "react";
 import Counter from "../../common/features/Counter/Counter";
 import { deleteCartItem, fetchCartItems, updateCartItemCount} from "../../redux/reducers/cart-reducer";
 import {useDispatch} from "react-redux";
@@ -23,18 +23,18 @@ const CartItem = ({item}) => {
        dispatch(fetchCartItems())
     }
 
-    const updateItemHandler = () => dispatch(updateCartItemCount(item._id, counter))
+    const updateItemHandler = useCallback(() => dispatch(updateCartItemCount(item._id, counter)), [counter, item._id, dispatch])
 
     useEffect(() => {
         updateItemHandler()
         dispatch(fetchCartItems())
-    }, [item._id, counter])
+    }, [item._id, counter, dispatch, updateItemHandler])
 
     return (
         <Card className="cart__item cart__item-hover">
             <div className="cart__item-info item-info">
                 <div className="item-info__image">
-                    <img src={item.image} alt="image"/>
+                    <img src={item.image} alt="item-info__image"/>
                 </div>
                 <div className="item-info__text info-text">
                     <p className="info-text__title">{item.title}</p>

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import shoppingCart from '../../common/images/shoping.svg'
-import user from '../../common/images/icon.svg'
-import {useDispatch, useSelector} from "react-redux";
-import {getCartItems, getCartValue} from "../../selectors/items-selectors";
+import { useSelector} from "react-redux";
+import {getCartItems} from "../../selectors/items-selectors";
 import {NavLink} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { fetchCartItems } from 'redux/reducers/cart-reducer';
 
 const UserCard = () => {
-    const dispatch = useDispatch()
+
     const [cartCount, setCartCount] = useState(JSON.parse(localStorage.getItem('cartCount')))
     const cartItems = useSelector(getCartItems)
 

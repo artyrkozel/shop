@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, { useState } from 'react'
 import minus from '../../images/minus.png'
 import plus from '../../images/plus.png'
 

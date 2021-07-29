@@ -1,26 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getArticles} from "../../selectors/items-selectors";
 import {fetchBlogItems} from "../../redux/reducers/cart-reducer";
 import Article from "./Article/Article";
+import { useCallback } from "react";
 
 
 const Blog = () => {
     const dispatch = useDispatch()
     const articles = useSelector(getArticles)
-    const onClickGetCartItems = async () => {
-        // try{
-        //     await axios.get('/api/article/all', {headers: {'Content-Type' : 'application/json'}})
-        //         .then((res) => dispatch(setArticles(res.data)))
-        // } catch (e) {
-        //     console.log(e)
-        // }
+    const onClickGetCartItems = useCallback(() => {
         dispatch(fetchBlogItems())
-    }
+    }, [dispatch])
     
     useEffect(() => {
         onClickGetCartItems()
-    }, [])
+    }, [onClickGetCartItems])
 
     return(
         <div className="news">

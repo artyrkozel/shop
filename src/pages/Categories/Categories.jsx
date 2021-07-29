@@ -6,6 +6,7 @@ import OfferItem from "../../components/Offer/OfferItem";
 import RangeSlider from "../../common/Range/Range";
 import Accordiont from 'common/Accordeon/Accordion';
 import Loader from 'common/Loader/Loader';
+import { useCallback } from 'react';
 
 
 
@@ -21,15 +22,17 @@ const Categories = () => {
     const filteredArr = useSelector(getFilteredArr)
 
     let mapArr = filteredArr?.length !==0 && filteredArr !== undefined && filterActive ? filteredArr : items
-    const typeHandler = (state) => {
+    const typeHandler = useCallback((state) => {
         let filters = []
         let filterType = Object.entries(state)
         filterType.filter(el => {
             let [key, value ] = el
-            if(value) filters.push(key)
+            if(value){
+                return filters.push(key)
+            }
         })
         setTypeFilter(filters)
-    }
+    }, [])
     const loadingHandler = () => {
         setLoading(true)
         setTimeout(() => {
@@ -37,33 +40,35 @@ const Categories = () => {
         }, 1000)
     }
 
-    const priceHandler = (value) => {
+    const itemsFilterByPrice = useCallback(() => {
+        setFilterActive(true)
+        const [low, hight] = price;
+        const filteredArr = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
+        dispatch(setFilteredItems(filteredArr))
+    }, [dispatch, items, price])
+
+    const priceHandler = useCallback((value) => {
         setPrice(value)
         itemsFilterByPrice()
-    }
+    },[itemsFilterByPrice])
     
     useEffect(() => {
         dispatch(requestAllItems())
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         loadingHandler()
     }, [price, typeFilter])
 
-    const itemsFilterByPrice = () => {
-        setFilterActive(true)
-        const [low, hight] = price;
-        const filteredArr = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
-        dispatch(setFilteredItems(filteredArr))
-    }
+    
     
     useEffect(() => {
         itemsFilterByPrice()
-    }, [price, items])
+    }, [price, items, itemsFilterByPrice])
 
     useEffect(() => {
         let resultArr = []
-        let result = items?.filter(el => {
+        items?.filter(el => {
             for(let i = 0; i < typeFilter.length; i++){
                if(el.type === typeFilter[i]){
                    resultArr.push(el)
@@ -72,7 +77,7 @@ const Categories = () => {
         })
         setFilterActive(true)
         dispatch(setFilteredItems(resultArr))
-    }, [typeFilter])
+    }, [typeFilter, dispatch, items])
     return (
         <div className="categories">
             <div className="container">

@@ -18,7 +18,7 @@ const ArticleDatails = () => {
                             <h1 className="details__title">{el.title}</h1>
                             <div className="details__time">{el.time}</div>
                             <div className="details__photo">
-                                <img src={el.photo} alt="photo" />
+                                <img src={el.photo} alt="details__photo" />
                             </div>
                             <p className="details__article">{el.artical}</p>
                         </div>

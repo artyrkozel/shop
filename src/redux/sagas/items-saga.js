@@ -1,7 +1,7 @@
 import {put, call, takeEvery} from 'redux-saga/effects'
 import {movieApi} from "../../api/api";
 import {isFetchingHandler, setAllItems} from "../reducers/items-reducer";
-import {setToCartList} from "../reducers/cart-reducer";
+import {fetchCartItems, setToCartList} from "../reducers/cart-reducer";
 
 function* requestItems(){
     try{
@@ -34,6 +34,7 @@ function* setItemToCart(action){
 function* deleteCartItem(action){
     try{
         yield call(() => movieApi.deleteCartItem(action.id))
+        yield put(fetchCartItems())
     } catch (e) {
         console.log(e)
     }
@@ -42,6 +43,7 @@ function* deleteCartItem(action){
 function* updateCartItemCount(action){
     try{
         yield call(() => movieApi.updateCartItemCount(action.id, action.count))
+        yield put(fetchCartItems())
     } catch (e) {
         console.log(e)
     }

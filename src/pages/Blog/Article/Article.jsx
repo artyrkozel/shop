@@ -1,4 +1,3 @@
-import { Modal } from "common/Modal/Modal";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -24,7 +23,7 @@ export const Article = ({article}) => {
                 <NavLink className="topic__link" to={`/article/${article._id}`}>More Details</NavLink>
             </div>
             <div className="topic__image">
-                <img src={article.photo} alt="photo"/>
+                <img src={article.photo} alt="article"/>
             </div>
         </div>
     )

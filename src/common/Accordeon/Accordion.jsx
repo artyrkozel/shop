@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { FormGroup } from "@material-ui/core";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 
 const Accordiont = ({title, typeHandler}) => {
@@ -18,20 +19,20 @@ const Accordiont = ({title, typeHandler}) => {
         FullFace: false,
         Dirt: false,
     });
-    const [filterBy, setFilterBy] = useState('')
+    
     const handleChange2 = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
-        setFilterBy(event.target.name)
+        
     };
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
-    const localTypeHandler = () => typeHandler(state)
+    const localTypeHandler = useCallback(() => typeHandler(state), [state, typeHandler])
 
     useEffect(() => {
         localTypeHandler()
-    }, [state])
+    }, [state, localTypeHandler])
 
     return (
         <div className="filters-panael">

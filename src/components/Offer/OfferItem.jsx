@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
 import Card from '@material-ui/core/Card';
-import { useEffect } from 'react';
 
 const OfferItem = ({ title, image, price, id, company }) => {
     const addToStorage = () => {
@@ -12,7 +11,7 @@ const OfferItem = ({ title, image, price, id, company }) => {
         <NavLink className="item-offer__btn" to={'/description/id=' + id} onClick={addToStorage}>
         <Card className="offers__item item-offer">
                 <div className="item-offer__image">
-                    <img className="" src={image} alt="image" />
+                    <img className="" src={image} alt="item-offer__image" />
                 </div>
                 <div className="item-offer__info">
                         <span className="item-offer__title">{title}</span>

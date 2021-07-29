@@ -1,15 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Card from '@material-ui/core/Card';
 
-function valuetext(value) {
-    return `${value}°C`;
-}
+
 
 const RangeSlider =({priceHandler}) => {
    
-    const [value, setValue] = React.useState([200, 450]);
+    const [value, setValue] = useState([200, 450]);
 
     const handleChange = (event, newValue) => {
         localStorage.setItem('price', JSON.stringify(newValue))
@@ -25,7 +23,7 @@ const RangeSlider =({priceHandler}) => {
 
     useEffect(() => {
         priceHandler(value)
-    },[value])
+    },[value, priceHandler])
     
     return (
         <Card className="range">
@@ -43,7 +41,6 @@ const RangeSlider =({priceHandler}) => {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
-                getAriaValueText={valuetext}
             />
         </Card>
         
