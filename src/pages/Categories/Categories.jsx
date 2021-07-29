@@ -25,7 +25,7 @@ const Categories = () => {
     const typeHandler = useCallback((state) => {
         let filters = []
         let filterType = Object.entries(state)
-        filterType.filter(el => {
+        filterType.forEach(el => {
             let [key, value ] = el
             if(value){
                 return filters.push(key)
@@ -66,9 +66,13 @@ const Categories = () => {
         itemsFilterByPrice()
     }, [price, items, itemsFilterByPrice])
 
+    // const filterHandler = (items) => {
+   
+    // }
+
     useEffect(() => {
         let resultArr = []
-        items?.filter(el => {
+        items?.forEach(el => {
             for(let i = 0; i < typeFilter.length; i++){
                if(el.type === typeFilter[i]){
                    resultArr.push(el)
