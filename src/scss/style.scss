@@ -292,9 +292,15 @@
     padding: 20px 45px;
   }
 }
+
+
 .list-item{
   &__field{
     display: none;
+    &:focus{
+      border: 1px solid red;
+      background-color: #000;
+    }
   }
   &__label{
     display: block;
@@ -304,6 +310,10 @@
     background-color: #fff;
     font-weight: 700;
     cursor: pointer;
+    &::focus{
+      border: 1px solid red;
+      background-color: #000;
+    }
   }
 }
 
@@ -542,6 +552,12 @@
   &__wrapper{
     width: 375px;
   }
+  &__title-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #404040;
+  }
   &__banner{
     background-image: url("../common/images/banner.png");
     background-repeat: no-repeat;
@@ -571,7 +587,6 @@
     color: $LinkColor;
     font-weight: bold;
     text-transform: uppercase;
-    border-bottom: 1px solid #404040;
     padding-bottom: 15px;
   }
   &__articles{
@@ -581,11 +596,11 @@
 
 .articles-item{
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 30px;
   &__image{
     width: 115px;
     margin-right: 35px;
-    height: 115px;
   }
   &__image img {
     object-fit: cover;
@@ -599,20 +614,26 @@
   &__time{
     font-size: 10px;
     color: $TimeColor;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   &__title{
     font-size: 14px;
     font-weight: 600;
     color: $LinkColor;
     line-height: 1.7;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   &__btn{
     background-color: transparent;
+    font-size: 12px;
     color: $LinkActive;
     padding: 0;
+    text-transform: uppercase;
+    font-weight: bold;
     text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
   }
 }
 
@@ -677,6 +698,12 @@
   &__inner{
     padding-top: 35px;
   }
+  &__title{
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #404040;
+  }
   &__topic{
     max-width: fit-content;
     margin: 0 auto;
@@ -685,7 +712,6 @@
 
 .topic{
   display: flex;
-  border-bottom: 1px solid red;
   margin-bottom: 40px;
   &__time{
     font-size: 12px;
@@ -695,6 +721,7 @@
     min-width: 125px;
   }
   &__content{
+    border-bottom: 1px solid red;
     margin-right: 45px;
   }
   &__title{
@@ -715,9 +742,9 @@
     color: $LinkActive;
   }
   &__link-active{
-      &:hover{
-        text-decoration: underline;
-      }
+    &__link:hover{
+      text-decoration: underline;
+    }
   }
   &__image{
     width: 250px;
@@ -726,44 +753,68 @@
 
 .details{
   min-height: calc(100vh - 100px);
-  padding: 35px 0;
-  text-align: center;
+  padding: 80px 0;
+  position: relative;
+  &__item{
+    text-align: center;
+  }
   &__title{
-    max-width: 540px;
-    margin: 0 auto 30px;
+    max-width: 700px;
+    margin: 0 auto 15px;
   }
   &__photo{
     margin-bottom: 20px;
   }
   &__article{
-    font-size: 18px;
-    max-width: 650px;
+    font-size: 16px;
     margin: 0 auto;
     line-height: 1.4;
+    text-align: left;
   }
   &__time{
     margin-bottom: 10px;
     color: $TimeColor;
   }
+  &__back-btn{
+    position: absolute;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #ff4f37;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
 }
 
 .contacts{
   min-height: calc(100vh - 100px);
+  padding-top: 120px;
   &__inner{
     display: flex;
+  }
+  &__titles-wrapper{
+    max-width: 300px;
   }
   &__title{
     font-size: 30px;
     text-transform: uppercase;
-    margin-bottom: 70px;
+    font-weight: 800;
+    color: $TitleColor;
+    margin-bottom: 15px;
+  }
+  &__subtitle{
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $SlideTitleColor;
   }
   &__map{
-    flex: 4;
+    height: 500px;
+    width: 100%;
   }
   &__form{
-    flex: 1;
-    width: 350px;
-    padding: 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
   &__phone{
     text-transform: uppercase;
@@ -776,16 +827,21 @@
 }
 
 .form{
-  max-width: 350px;
+  width: 740px;
   &__field{
     margin-bottom: 20px;
   }
+  &__fields{
+    display: flex;
+  }
   &__field-item{
     width: 100%;
+    &:first-child{
+      margin-right: 20px;
+    }
   }
   &__button{
     margin-bottom: 45px;
-    width: 115px;
   }
 }
 

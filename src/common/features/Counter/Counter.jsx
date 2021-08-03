@@ -21,7 +21,7 @@ const Counter = ({count, countHandlerMinus, countHandler}) => {
             <button className="counter__button" onClick={countHandlerMinusLocal}>
                 <img src={minus} alt="minus"/>
             </button>
-            <input type="text" className="counter__field" defaultValue="1" value={counter}/>
+            <input type="text" readOnly className="counter__field" defaultValue="1" value={counter}/>
             <button className="counter__button" onClick={countHandlerPlusLocal}><img src={plus} alt="minus"/></button>
         </div>
     )

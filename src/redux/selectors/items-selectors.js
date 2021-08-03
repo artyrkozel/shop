@@ -24,3 +24,7 @@ export const getIsFeatchingValue = (state) => {
 export const getFilteredArr = (state) => {
     return state.items.filteredItems
 }
+
+export const getInitializeValue = (state) => {
+    return state.app.initialize
+}

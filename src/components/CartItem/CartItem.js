@@ -1,33 +1,33 @@
-import React, { useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Counter from "../../common/features/Counter/Counter";
-import { deleteCartItem, fetchCartItems, updateCartItemCount} from "../../redux/reducers/cart-reducer";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Card from '@material-ui/core/Card';
+import { actions } from "actions/actions";
+
 const CartItem = ({item}) => {
 
     const [counter, setCounter] = useState(item.count)
 
     const dispatch = useDispatch()
+
     const countHandler = () => {
         setCounter(prev => prev + 1)
-        //dispatch(fetchCartItems())
     }
     const countHandlerMinus = () => {
         setCounter(prev => prev - 1)
-        //dispatch(fetchCartItems())
     }
 
     const deleteItemHandler = () => {
-        dispatch(deleteCartItem(item._id))
-       dispatch(fetchCartItems())
+        dispatch(actions.deleteCartItem(item._id))
+       dispatch(actions.fetchCartItems())
     }
 
-    const updateItemHandler = useCallback(() => dispatch(updateCartItemCount(item._id, counter)), [counter, item._id, dispatch])
+    const updateItemHandler = useCallback(() => dispatch(actions.updateCartItemCount(item._id, counter)), [counter, item._id, dispatch])
 
     useEffect(() => {
         updateItemHandler()
-        dispatch(fetchCartItems())
+        dispatch(actions.fetchCartItems())
     }, [item._id, counter, dispatch, updateItemHandler])
 
     return (

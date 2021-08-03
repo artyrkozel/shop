@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import {rootWatcher} from "./sagas/sagas";
 import cartReducer from "./reducers/cart-reducer";
 import blogReducer from "./reducers/blog-reducer";
+import appReducer from "./reducers/app-resucer";
 
 
 const SagaMiddleware = createSagaMiddleware()
@@ -11,7 +12,8 @@ const SagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
     items: itemsReducer,
     cart: cartReducer,
-    blog: blogReducer
+    blog: blogReducer,
+    app: appReducer
 })
 
 let store = createStore(rootReducer,applyMiddleware(SagaMiddleware))

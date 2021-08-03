@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getCartItems, getItem } from "../../selectors/items-selectors";
-import { setDecriptionItem } from "../../redux/reducers/items-reducer";
+import { getCartItems, getItem } from "../../redux/selectors/items-selectors";
 import { NavLink } from "react-router-dom";
 import arrowIcon from '../../common/images/arrow.png'
 import Counter from "../../common/features/Counter/Counter";
-import { fetchCartItems, setNewItemToCart } from "../../redux/reducers/cart-reducer";
 import Loader from 'common/Loader/Loader';
+import { actions } from 'actions/actions';
 
 const Description = () => {
     const dispatch = useDispatch()
@@ -21,20 +20,20 @@ const Description = () => {
     const cartItems = useSelector(getCartItems)
 
     const onClickSetToCart = () => {
+        let cartCount = JSON.parse(localStorage.getItem('cartCount')) + 1 
         let cartItem = {
             ...item,
             size: size,
             count: count
         }
-        setContain(true)
-        dispatch(setNewItemToCart(cartItem))
-        
+        dispatch(actions.setNewItemToCart(cartItem))
+        localStorage.setItem('cartCount', JSON.stringify(cartCount))        
     }
 
     useEffect(() => {
         let item = JSON.parse(localStorage.getItem('desc'))
-        dispatch(setDecriptionItem(item))
-        dispatch(fetchCartItems())
+        dispatch(actions.setDecriptionItem(item))
+        dispatch(actions.fetchCartItems())
         let uniqArr = cartItems.filter(el => el.title === item.title)
         if (uniqArr.length === 0) {
             setContain(false)

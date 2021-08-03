@@ -1,16 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { textCrop } from "utils/utils";
 
 export const Article = ({article}) => {
-    const textCrop = (text) => {
-        let arr = []
-        let crop = text.split(" ")
-        for(let i = 0; i < 30; i++){
-            arr.push(crop[i])
-        }
-        let cropText = [...arr, '...']
-        return cropText.join(' ')
-    }
 
     return(
            <div className="topic">
@@ -20,7 +12,7 @@ export const Article = ({article}) => {
             <div className="topic__content">
                 <div className="topic__title">{article.title}</div>
                 <div className="topic__article">{textCrop(article.artical)}</div>
-                <NavLink className="topic__link" to={`/article/${article._id}`}>More Details</NavLink>
+                <NavLink className="topic__link topic__link-active" to={`/article/${article._id}`}>More Details</NavLink>
             </div>
             <div className="topic__image">
                 <img src={article.photo} alt="article"/>

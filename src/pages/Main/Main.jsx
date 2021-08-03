@@ -7,19 +7,22 @@ import brand3 from '../../common/images/brand3.png'
 import brand4 from '../../common/images/brand4.png'
 import brand5 from '../../common/images/brand5.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { requestAllItems } from 'redux/reducers/items-reducer';
-import { getMovieList } from 'selectors/items-selectors';
+import { getArticles, getMovieList } from '../../redux/selectors/items-selectors';
 import Slide from 'common/Slide/Slide';
+import BlogItem from 'common/BlogItem/BlogItem';
+import { NavLink } from 'react-router-dom';
+import { actions } from 'actions/actions';
 
 const Main = () => {
     const items = useSelector(getMovieList)
+    const articles = useSelector(getArticles)
     const dispatch = useDispatch()
+    
     useEffect(() => {
-        dispatch(requestAllItems())
+        dispatch(actions.requestAllItems())
+        dispatch(actions.fetchBlogItems())
     }, [dispatch])
 
-
-    if(!items) return <div>fff</div>
     return (
         <>
             <div className="main">
@@ -28,6 +31,7 @@ const Main = () => {
                         <Carousel showArrows={true} showIndicators={false} dynamicHeight={false} emulateTouch={true} showStatus={false} showThumbs={false}>
                             {items?.map(slide => <Slide key={slide._id} slide={slide}/>)}
                         </Carousel>
+                        
                     </div>
                 </div>
             </div>
@@ -35,55 +39,13 @@ const Main = () => {
                 <div className="container-fluid">
                     <div className="blog__inner">
                         <div className="blog__wrapper">
-                            <p className="blog__title">Blog x Events</p>
-                            <div className="blog__articles">
-                                <div className="blog__articles-item articles-item">
-                                    <div className="articles-item__image">
-                                        <img src="https://rasekhoon.net/_files/images/photogallery/motorcycle-racer-racing.jpg" alt="" />
-                                    </div>
-                                    <div className="articles-item__wrapper">
-                                        <div className="articles-item__time">
-                                            02/08/2017
-                                        </div>
-                                        <div className="articles-item__title">
-                                            Dennis wins Van Doren Invitational WSBC Champ.
-                                        </div>
-                                        <button className="btn articles-item__btn">read more</button>
-                                    </div>
-                                </div>
+                            <div className="blog__title-wrapper">
+                                <p className="blog__title">Blog x Events</p>
+                                <NavLink className="articles-item__btn" to={`/blog`}>see all</NavLink>
                             </div>
                             <div className="blog__articles">
-                                <div className="blog__articles-item articles-item">
-                                    <div className="articles-item__image">
-                                        <img src="https://rasekhoon.net/_files/images/photogallery/motorcycle-racer-racing.jpg" alt="" />
-                                    </div>
-                                    <div className="articles-item__wrapper">
-                                        <div className="articles-item__time">
-                                            02/08/2017
-                                        </div>
-                                        <div className="articles-item__title">
-                                            Dennis wins Van Doren Invitational WSBC Champ.
-                                        </div>
-                                        <button className="btn articles-item__btn">read more</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog__articles">
-                                <div className="blog__articles-item articles-item">
-                                    <div className="articles-item__image">
-                                        <img src="https://rasekhoon.net/_files/images/photogallery/motorcycle-racer-racing.jpg" alt="" />
-                                    </div>
-                                    <div className="articles-item__wrapper">
-                                        <div className="articles-item__time">
-                                            02/08/2017
-                                        </div>
-                                        <div className="articles-item__title">
-                                            Dennis wins Van Doren Invitational WSBC Champ.
-                                        </div>
-                                        <button className="btn articles-item__btn">read more</button>
-                                    </div>
-                                </div>
-                            </div>
+                                {articles?.map(blogItem => <BlogItem  blogItem={blogItem} key={blogItem._id}/>)}
+                           </div>
                         </div>
                         <div className="blog__banner">
                             <p className="blog__banner-title">AGV<br />Best Sellers</p>

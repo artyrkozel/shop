@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import { fetchCartItems } from "../../redux/reducers/cart-reducer";
-import {getCartItems} from "../../selectors/items-selectors";
+import {getCartItems} from "../../redux/selectors/items-selectors";
 import CartItem from "../../components/CartItem/CartItem";
 import Card from '@material-ui/core/Card';
+import { actions } from 'actions/actions';
+import Preloader from 'common/Preloader/Preloader';
 
 const Cart = () => {
 
     const [resultArr, setResultArr] = useState([])
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const cartItems = useSelector(getCartItems)
     useEffect(() => {
-        dispatch(fetchCartItems())
+        loadingHandler()
+        dispatch(actions.fetchCartItems())
     },[dispatch])
+
+    const loadingHandler = () => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }
 
     useEffect(() => {
         localStorage.setItem('cartCount', JSON.stringify(cartItems.length))
@@ -31,15 +41,19 @@ const Cart = () => {
             <div className="container-fluid">
                 <div className="cart__inner">
                     <div className="cart__title">Shopping Cart</div>
-                    {cartItems.map(item => <CartItem key={item._id} item={item}/>)}
-                    <Card className="cart__totals">
+                    {loading 
+                    ? <Preloader /> 
+                    : cartItems.map(item => <CartItem key={item._id} item={item}/>)}
+                    {loading 
+                    ? <Preloader /> 
+                    : <Card className="cart__totals">
                         <p className="cart__title">Your cart</p>
                         <div className="cart__discount discount">
                             <input className="discount__field input" type="text" placeholder="Discount promo code"/>
                             <button className="discount__btn btn">Apply</button>
                         </div>
                         <button className="btn cart__totals-btn">Buy for $ {resultArr}</button>
-                    </Card>
+                    </Card>}
                 </div>
             </div>
         </div>

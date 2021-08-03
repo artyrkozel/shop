@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector} from "react-redux";
-import {getCartItems} from "../../selectors/items-selectors";
+import {getCartItems} from "../../redux/selectors/items-selectors";
 import {NavLink} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 

@@ -2,7 +2,8 @@
 import React from "react"
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getArticles } from "../../../selectors/items-selectors";
+import { getArticles } from "../../../redux/selectors/items-selectors";
+import { NavLink } from "react-router-dom";
 
 const ArticleDatails = () => {
 
@@ -11,10 +12,11 @@ const ArticleDatails = () => {
 
     return <div className="details">
         <div className="container-fluid">
+            <NavLink to="/blog" className="details__back-btn">Back to blog</NavLink>
             <div className="details__inner">
                 {article.map(el => {
                     return (
-                        <div>
+                        <div className="details__item">
                             <h1 className="details__title">{el.title}</h1>
                             <div className="details__time">{el.time}</div>
                             <div className="details__photo">

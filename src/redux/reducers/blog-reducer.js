@@ -1,18 +1,4 @@
 
-export const setArticles = (articles) => {
-    return {
-        type: 'SET_ARTICLES',
-        articles
-    }
-}
-
-export const getArticle = (articleId) => {
-    return{
-        type: 'FETCH_ARTICLE',
-        articleId
-    }
-}
-
 let initialState = {
     articles: [],
 }

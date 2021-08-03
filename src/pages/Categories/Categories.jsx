@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import {requestAllItems, setFilteredItems} from "../../redux/reducers/items-reducer";
-import {getFilteredArr, getMovieList} from "../../selectors/items-selectors";
+import {getFilteredArr, getMovieList} from "../../redux/selectors/items-selectors";
 import OfferItem from "../../components/Offer/OfferItem";
 import RangeSlider from "../../common/Range/Range";
 import Accordiont from 'common/Accordeon/Accordion';
-import Loader from 'common/Loader/Loader';
 import { useCallback } from 'react';
-
+import Preloader from 'common/Preloader/Preloader';
+import { actions } from 'actions/actions';
 
 
 const Categories = () => {
@@ -17,11 +16,12 @@ const Categories = () => {
     const [filterActive, setFilterActive] = useState(false)
     const [loading, setLoading] = useState(false)
     const [typeFilter, setTypeFilter] = useState([])
-
+    
     const items = useSelector(getMovieList)
     const filteredArr = useSelector(getFilteredArr)
 
-    let mapArr = filteredArr?.length !==0 && filteredArr !== undefined && filterActive ? filteredArr : items
+    let mapArr = filteredArr?.length !== 0 && filteredArr !== undefined && filterActive ? filteredArr : items
+
     const typeHandler = useCallback((state) => {
         let filters = []
         let filterType = Object.entries(state)
@@ -33,6 +33,7 @@ const Categories = () => {
         })
         setTypeFilter(filters)
     }, [])
+    
     const loadingHandler = () => {
         setLoading(true)
         setTimeout(() => {
@@ -44,7 +45,7 @@ const Categories = () => {
         setFilterActive(true)
         const [low, hight] = price;
         const filteredArr = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
-        dispatch(setFilteredItems(filteredArr))
+        dispatch(actions.setFilteredItems(filteredArr))
     }, [dispatch, items, price])
 
     const priceHandler = useCallback((value) => {
@@ -53,24 +54,18 @@ const Categories = () => {
     },[itemsFilterByPrice])
     
     useEffect(() => {
-        dispatch(requestAllItems())
+        dispatch(actions.requestAllItems())
     }, [dispatch])
 
     useEffect(() => {
         loadingHandler()
     }, [price, typeFilter])
-
-    
     
     useEffect(() => {
         itemsFilterByPrice()
     }, [price, items, itemsFilterByPrice])
 
-    // const filterHandler = (items) => {
-   
-    // }
-
-    useEffect(() => {
+    const filterByType = useCallback(() => {
         let resultArr = []
         items?.forEach(el => {
             for(let i = 0; i < typeFilter.length; i++){
@@ -80,8 +75,12 @@ const Categories = () => {
             }
         })
         setFilterActive(true)
-        dispatch(setFilteredItems(resultArr))
-    }, [typeFilter, dispatch, items])
+        dispatch(actions.setFilteredItems(resultArr))
+    }, [typeFilter, dispatch])
+
+    useEffect(() => {
+        filterByType()
+    }, [typeFilter, dispatch])
     return (
         <div className="categories">
             <div className="container">
@@ -106,7 +105,7 @@ const Categories = () => {
                     <div className="categories__offers offers">
                         <h2 className="offers__title title">{`Motorcycle Helmets (${mapArr?.length})`}</h2>
                         <div className="offers__items">
-                        {loading ? <Loader /> :
+                        {loading ? <Preloader /> :
                             mapArr?.map(item =>
                             <OfferItem key={item._id}
                                        title={item.title}

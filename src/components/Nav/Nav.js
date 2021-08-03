@@ -8,7 +8,7 @@ const Nav = () => {
                 <div className="menu__inner">
                         <ul className="menu__list list">
                             <li className="list__item">
-                                <NavLink to="/" activeClassName="list__link-active" className="list__link">Home</NavLink>
+                                <NavLink to="/main" activeClassName="list__link-active" className="list__link">Home</NavLink>
                             </li>
                             <li className="list__item">
                                 <NavLink to="/blog" activeClassName="list__link-active" className="list__link">Blog</NavLink>

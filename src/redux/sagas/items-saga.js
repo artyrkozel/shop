@@ -1,14 +1,13 @@
 import {put, call, takeEvery} from 'redux-saga/effects'
 import {movieApi} from "../../api/api";
-import {isFetchingHandler, setAllItems} from "../reducers/items-reducer";
-import {fetchCartItems, setToCartList} from "../reducers/cart-reducer";
+import { actions } from 'actions/actions';
 
 function* requestItems(){
     try{
-        yield put(isFetchingHandler(true))
+        yield put(actions.isFetchingHandler(true))
         let res = yield call(() => movieApi.getItems())
-        yield put(isFetchingHandler(false))
-        yield put(setAllItems(res.data))
+        yield put(actions.isFetchingHandler(false))
+        yield put(actions.setAllItems(res.data))
     } catch (e) {
         console.log(e)
     }
@@ -17,7 +16,7 @@ function* requestItems(){
 function* requestCartItems(){
     try{
         let res = yield call(() => movieApi.getCatItem())
-        yield put(setToCartList(res.data))
+        yield put(actions.setToCartList(res.data))
     } catch (e) {
         console.log(e)
     }
@@ -34,7 +33,7 @@ function* setItemToCart(action){
 function* deleteCartItem(action){
     try{
         yield call(() => movieApi.deleteCartItem(action.id))
-        yield put(fetchCartItems())
+        yield put(actions.fetchCartItems())
     } catch (e) {
         console.log(e)
     }
@@ -43,7 +42,7 @@ function* deleteCartItem(action){
 function* updateCartItemCount(action){
     try{
         yield call(() => movieApi.updateCartItemCount(action.id, action.count))
-        yield put(fetchCartItems())
+        yield put(actions.fetchCartItems())
     } catch (e) {
         console.log(e)
     }
