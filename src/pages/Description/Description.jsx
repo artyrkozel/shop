@@ -21,7 +21,6 @@ const Description = () => {
     const cartItems = useSelector(getCartItems)
     const btnTypeHandler = useSelector(getBtnValue)
 
-
     const onClickSetToCart = () => {
         let cartItem = {
             ...item,
@@ -30,22 +29,24 @@ const Description = () => {
         }
          dispatch(actions.setNewItemToCart(cartItem))
          dispatch(actions.fetchCartItems())
-         dispatch(actions.setBtnValue(true))
+         //dispatch(actions.setBtnValue(true))
+         dispatch(actions.fetchCartItems())
     }
 
     useEffect(() => {
-        dispatch(actions.fetchCartItems())
         let uniqArr = cartItems.filter(el => el.title === item.title)
-        if (uniqArr.length === 0) {
-           dispatch(actions.setBtnValue(false))
+        if (uniqArr.length > 0) {
+            dispatch(actions.setBtnValue(true))
+          // dispatch(actions.setBtnValue(false))
         } else {
-           dispatch(actions.setBtnValue(true))
+            dispatch(actions.setBtnValue(false))
         }
-    },[dispatch])
+    },[cartItems, item.title, dispatch])
     
     // useEffect(() => {
     //     dispatch(actions.fetchCartItems())
     // },[dispatch])
+    
     if (item === undefined || item === null) return <Loader />
     return (
         <div className="description">

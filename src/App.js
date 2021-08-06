@@ -7,7 +7,6 @@ import Main from "./pages/Main/Main";
 import Footer from "./components/Footer/Footer";
 import Blog from "./pages/Blog/Blog";
 import Contacts from "./pages/Contacts/Contacts";
-import { useDispatch } from 'react-redux';
 import ArticleDatails from 'pages/Blog/ArticleDatails/ArticleDatails';
 import Categories from 'pages/Categories/Categories';
 import Header from 'components/Header/Header';
