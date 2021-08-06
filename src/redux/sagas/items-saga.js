@@ -25,6 +25,7 @@ function* requestCartItems(){
 function* setItemToCart(action){
     try{
         yield call(() => movieApi.setItemToCart(action.item))
+        yield put(actions.fetchCartItems())
     } catch (e) {
         console.log(e)
     }

@@ -28,3 +28,7 @@ export const getFilteredArr = (state) => {
 export const getInitializeValue = (state) => {
     return state.app.initialize
 }
+
+export const getBtnValue = (state) => {
+    return state.app.btnType
+}

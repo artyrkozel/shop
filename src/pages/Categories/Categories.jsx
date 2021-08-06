@@ -12,7 +12,7 @@ import { actions } from 'actions/actions';
 const Categories = () => {
     const dispatch = useDispatch()
 
-    const [price, setPrice] = useState(JSON.parse(localStorage.getItem('price')))
+    const [price, setPrice] = useState(JSON.parse(localStorage.getItem('price')) || [100, 450])
     const [filterActive, setFilterActive] = useState(false)
     const [loading, setLoading] = useState(false)
     const [typeFilter, setTypeFilter] = useState([])
@@ -41,17 +41,13 @@ const Categories = () => {
         }, 1000)
     }
 
-    const itemsFilterByPrice = useCallback(() => {
+    const priceHandler = useCallback((value) => {
+        setPrice(value)
         setFilterActive(true)
         const [low, hight] = price;
         const filteredArr = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
         dispatch(actions.setFilteredItems(filteredArr))
-    }, [dispatch, items, price])
-
-    const priceHandler = useCallback((value) => {
-        setPrice(value)
-        itemsFilterByPrice()
-    },[itemsFilterByPrice])
+    },[price, dispatch, items])
     
     useEffect(() => {
         dispatch(actions.requestAllItems())
@@ -61,26 +57,23 @@ const Categories = () => {
         loadingHandler()
     }, [price, typeFilter])
     
-    useEffect(() => {
-        itemsFilterByPrice()
-    }, [price, items, itemsFilterByPrice])
 
-    const filterByType = useCallback(() => {
-        let resultArr = []
-        items?.forEach(el => {
-            for(let i = 0; i < typeFilter.length; i++){
-               if(el.type === typeFilter[i]){
-                   resultArr.push(el)
-               }
-            }
-        })
-        setFilterActive(true)
-        dispatch(actions.setFilteredItems(resultArr))
-    }, [typeFilter, dispatch])
+    // const filterByType = useCallback(() => {
+    //     let resultArr = []
+    //     items?.forEach(el => {
+    //         for(let i = 0; i < typeFilter.length; i++){
+    //            if(el.type === typeFilter[i]){
+    //                resultArr.push(el)
+    //            }
+    //         }
+    //     })
+    //     setFilterActive(true)
+    //     dispatch(actions.setFilteredItems(resultArr))
+    // }, [typeFilter, dispatch, items])
 
-    useEffect(() => {
-        filterByType()
-    }, [typeFilter, dispatch])
+    // useEffect(() => {
+    //     filterByType()
+    // }, [typeFilter, dispatch, filterByType])
     return (
         <div className="categories">
             <div className="container">
@@ -108,11 +101,7 @@ const Categories = () => {
                         {loading ? <Preloader /> :
                             mapArr?.map(item =>
                             <OfferItem key={item._id}
-                                       title={item.title}
-                                       image={item.image}
-                                       price={item.price}
-                                       id={item._id}
-                                       company={item.company}
+                                       item ={item}
                             />
                         )
                     }

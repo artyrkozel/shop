@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {getCartItems} from "../../redux/selectors/items-selectors";
-import CartItem from "../../components/CartItem/CartItem";
 import Card from '@material-ui/core/Card';
 import { actions } from 'actions/actions';
 import Preloader from 'common/Preloader/Preloader';
+import CartItem from 'components/CartItem/CartItem';
 
 const Cart = () => {
 

@@ -1,12 +1,7 @@
-export const setInitialValue = (value) => {
-    return {
-        type: 'INITIALIZE',
-        value
-    }
-}
 
 let initialState = {
     initialize: true,
+    btnType: false,
 }
 
 const appReducer = (state = initialState, action) => {
@@ -15,6 +10,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 initialize: action.value
+            }
+            case 'SET_BTN_VALUE':
+            return {
+                ...state,
+                btnType: action.value
             }
         default:
             return state

@@ -17,6 +17,6 @@ export const actions = {
     getItemById: (id) => ({type: 'GET_ITEM', id}),
     isFetchingHandler: (value) => ({type: 'CHANGE_FEATCHING', value}),
     setFilteredItems: (filteredItems) => ({type: 'SET_FILTERED_ITEMS', filteredItems}),
-    setDecriptionItem: (item) => ({type: 'SET_DESC_ITEM', item})
-
+    setDecriptionItem: (item) => ({type: 'SET_DESC_ITEM', item}),
+    setBtnValue: (value) => ({type: 'SET_BTN_VALUE', value})
 }
