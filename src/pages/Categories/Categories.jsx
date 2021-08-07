@@ -32,7 +32,7 @@ const Categories = () => {
         setTypeFilter(filters)
     }, [])
 
-    const fff = (filteredArr, typeFilter) => {
+    const filterHandler = useCallback((filteredArr, typeFilter) => {
         if (typeFilter.length > 0 && filteredArr) {
             let resultArr = []
             typeFilter.forEach(element => {
@@ -52,7 +52,8 @@ const Categories = () => {
             const finish = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
             dispatch(actions.setFilteredItems(finish))
         }
-    }
+    }, [dispatch, items, price])
+    
     const loadingHandler = () => {
         setLoading(true)
         setTimeout(() => {
@@ -63,8 +64,8 @@ const Categories = () => {
     const priceHandler = useCallback((value) => {
         setPrice(value)
         setFilterActive(true)
-        fff(items, typeFilter)
-    }, [price, dispatch, items, typeFilter])
+        filterHandler(items, typeFilter)
+    }, [items, typeFilter, filterHandler])
 
     useEffect(() => {
         dispatch(actions.requestAllItems())
@@ -73,11 +74,6 @@ const Categories = () => {
     useEffect(() => {
         loadingHandler()
     }, [price, typeFilter])
-
-    
-    // useEffect(() => {
-    //     fff(items, typeFilter)
-    // }, [typeFilter])
 
     return (
         <div className="categories">
@@ -106,13 +102,7 @@ const Categories = () => {
                             : <>
                                 <h2 className="offers__title title">{`Motorcycle Helmets (${mapArr?.length})`}</h2>
                                 <div className="offers__items">
-                                    {
-                                        mapArr?.map(item =>
-                                            <OfferItem key={item._id}
-                                                item={item}
-                                            />
-                                        )
-                                    }
+                                    {mapArr?.map( item => <OfferItem key={item._id} item={item}/> )}
                                 </div>
                             </>
                         }
