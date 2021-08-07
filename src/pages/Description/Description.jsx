@@ -16,7 +16,6 @@ const Description = () => {
     const countHandler = useCallback(() => { setCount(prev => prev + 1) }, [])
     const countHandlerMinus = useCallback(() => { setCount(prev => prev - 1) }, [])
 
-
     const item = (useSelector(getItem))
     const cartItems = useSelector(getCartItems)
     const btnTypeHandler = useSelector(getBtnValue)
@@ -28,7 +27,6 @@ const Description = () => {
             count: count
         }
          dispatch(actions.setNewItemToCart(cartItem))
-         dispatch(actions.fetchCartItems())
          dispatch(actions.fetchCartItems())
     }
 

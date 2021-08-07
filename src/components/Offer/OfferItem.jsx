@@ -12,6 +12,7 @@ const OfferItem = ({ item }) => {
 
     return (
         <NavLink className="item-offer__btn" to={'/description/id=' + item._id} onClick={setDiscr}>
+            <span className="item-offer__type">{item.type}</span>
         <Card className="offers__item item-offer">
                 <div className="item-offer__image">
                     <img className="" src={item.image} alt="item-offer__image" />
@@ -19,7 +20,6 @@ const OfferItem = ({ item }) => {
                 <div className="item-offer__info">
                         <span className="item-offer__title">{item.title}</span>
                         <span className="item-offer__price">{`$ ${item.price}`}</span>
-                   
                 </div>
         </Card>
 </NavLink>

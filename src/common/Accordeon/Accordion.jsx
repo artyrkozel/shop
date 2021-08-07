@@ -13,7 +13,7 @@ import { useCallback } from "react";
 
 const Accordiont = ({title, typeHandler}) => {
     const [expanded, setExpanded] = useState('panel1');
-    const [state, setState] = React.useState({
+    const [state, setState] = React.useState(JSON.parse(localStorage.getItem('type')) || {
         Modular: false,
         HalfFace: false,
         FullFace: false,
@@ -22,7 +22,6 @@ const Accordiont = ({title, typeHandler}) => {
     
     const handleChange2 = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
-        
     };
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -31,6 +30,7 @@ const Accordiont = ({title, typeHandler}) => {
     const localTypeHandler = useCallback(() => typeHandler(state), [state, typeHandler])
 
     useEffect(() => {
+        localStorage.setItem('type', JSON.stringify(state))
         localTypeHandler()
     }, [state, localTypeHandler])
 

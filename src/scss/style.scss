@@ -77,31 +77,38 @@
 .card{
   display: flex;
   align-items: center;
-  &__field{
-    margin-right: 50px;
-    width: 260px;
-  }
-  &__field-filed{
-    width: 100%;
-    height: 50px;
-    padding: 20px 17px;
-    font-size: 12px;
-    border: 1px solid #dddddd;
-  }
   &__btn{
     position: relative;
+    right: 25px;
+    padding: 3px 6px;
+    transition: .4s;
+    border-radius: 50%;
     .MuiSvgIcon-root{
       color: #000;
+    }
+    &:hover{
+      background: #eee;
     }
   }
   &__btn-count{
     position: absolute;
     top: -7px;
-    right: -15px;
     font-weight: 700;
     font-size: 16px;
     text-transform: uppercase;
-    color: #ff4f37;
+    background-color: #ff4f37;
+    min-width: 24px;
+    max-width: 34px;
+    height: 24px;
+    padding: 4px;
+    border: 3px solid #fff;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 
@@ -191,6 +198,23 @@
   &__info{
     display: flex;
     flex-direction: column;
+  }
+  &__btn{
+    position: relative;
+  }
+  &__type{
+    position: absolute;
+    transform: translate(-50%, 20px);
+    left: 50%;
+    z-index: 100;
+    background: #05b3f9;
+    color: #fff;
+    padding: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 60px;
+    text-align: center;
   }
 }
 
@@ -462,7 +486,6 @@
     font-weight: 700;
     font-size: 14px;
     color: #fff;
-    padding: 25px 20px;
     background-color: #ff4f37;
     &:first-child{
       background-color: #fff;

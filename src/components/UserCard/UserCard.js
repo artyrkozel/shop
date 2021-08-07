@@ -17,9 +17,6 @@ const UserCard = () => {
     
     return (
         <div className="card">
-            <div className="card__field">
-                <input className="card__field-filed" type="text" placeholder="search"/>
-            </div>
             <div className="card__btn">
                 <NavLink className="card__btn-btn" to={"/cart"}><ShoppingCartIcon className="icon"/></NavLink>
                 <span className="card__btn-count">{totalCount !== 0 ? totalCount : ''}</span>

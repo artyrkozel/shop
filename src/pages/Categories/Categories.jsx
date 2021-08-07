@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import {getFilteredArr, getMovieList} from "../../redux/selectors/items-selectors";
+import { getFilteredArr, getMovieList } from "../../redux/selectors/items-selectors";
 import OfferItem from "../../components/Offer/OfferItem";
 import RangeSlider from "../../common/Range/Range";
 import Accordiont from 'common/Accordeon/Accordion';
@@ -11,44 +11,61 @@ import { actions } from 'actions/actions';
 
 const Categories = () => {
     const dispatch = useDispatch()
-
     const [price, setPrice] = useState(JSON.parse(localStorage.getItem('price')) || [100, 450])
-    console.log(price)
     const [filterActive, setFilterActive] = useState(false)
     const [loading, setLoading] = useState(false)
     const [typeFilter, setTypeFilter] = useState([])
-    console.log( typeFilter)
     const items = useSelector(getMovieList)
     const filteredArr = useSelector(getFilteredArr)
+
     let mapArr = filteredArr?.length !== 0 && filteredArr !== undefined && filterActive ? filteredArr : items
 
     const typeHandler = useCallback((state) => {
         let filters = []
         let filterType = Object.entries(state)
         filterType.forEach(el => {
-            let [key, value ] = el
-            if(value){
+            let [key, value] = el
+            if (value) {
                 return filters.push(key)
             }
         })
         setTypeFilter(filters)
     }, [])
 
+    const fff = (filteredArr, typeFilter) => {
+        if (typeFilter.length > 0 && filteredArr) {
+            let resultArr = []
+            typeFilter.forEach(element => {
+                switch (element) {
+                    case "Modular": return filteredArr.filter(el => el.type === "Modular" ? resultArr.push(el) : '')
+                    case "HalfFace": return filteredArr.filter(el => el.type === "HalfFace" ? resultArr.push(el) : '')
+                    case "FullFace": return filteredArr.filter(el => el.type === "FullFace" ? resultArr.push(el) : '')
+                    case "Dirt": return filteredArr.filter(el => el.type === "Dirt" ? resultArr.push(el) : '')
+                    default: return
+                }
+            });
+            const [low, hight] = price;
+            const finish = resultArr.filter(el => el.price >= low && el.price <= hight ? el : '')
+            dispatch(actions.setFilteredItems(finish))
+        } else {
+            const [low, hight] = price;
+            const finish = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
+            dispatch(actions.setFilteredItems(finish))
+        }
+    }
     const loadingHandler = () => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-        }, 1000)
+        }, 500)
     }
 
     const priceHandler = useCallback((value) => {
         setPrice(value)
         setFilterActive(true)
-        const [low, hight] = price;
-        const filteredArr = items?.filter(el => el.price >= low && el.price <= hight ? el : '')
-        dispatch(actions.setFilteredItems(filteredArr))
-    },[price, dispatch, items])
-    
+        fff(items, typeFilter)
+    }, [price, dispatch, items, typeFilter])
+
     useEffect(() => {
         dispatch(actions.requestAllItems())
     }, [dispatch])
@@ -56,24 +73,12 @@ const Categories = () => {
     useEffect(() => {
         loadingHandler()
     }, [price, typeFilter])
+
     
-
-    // const filterByType = useCallback(() => {
-    //     let resultArr = []
-    //     filteredArr?.forEach(el => {
-    //         for(let i = 0; i < typeFilter.length; i++){
-    //            if(el.type === typeFilter[i]){
-    //                resultArr.push(el)
-    //            }
-    //         }
-    //     })
-    //     setFilterActive(true)
-    //     dispatch(actions.setFilteredItems(resultArr))
-    // }, [typeFilter, dispatch, items])
-
     // useEffect(() => {
-    //     filterByType()
-    // }, [typeFilterActive])
+    //     fff(items, typeFilter)
+    // }, [typeFilter])
+
     return (
         <div className="categories">
             <div className="container">
@@ -83,29 +88,34 @@ const Categories = () => {
                             <h2 className="categories__title title">Refine by :</h2>
                             <ul className="categories__accardeon">
                                 <li className="list__item">
-                                    <Accordiont title="Helmet Type" typeHandler={typeHandler}/>
+                                    <Accordiont title="Helmet Type" typeHandler={typeHandler} />
                                 </li>
                             </ul>
                         </div>
                         <div className="categories__filters">
                             <ul className="categories__list list">
                                 <li className="list__item">
-                                    <RangeSlider priceHandler={priceHandler}/>
+                                    <RangeSlider priceHandler={priceHandler} />
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div className="categories__offers offers">
-                        <h2 className="offers__title title">{`Motorcycle Helmets (${mapArr?.length})`}</h2>
-                        <div className="offers__items">
-                        {loading ? <Preloader /> :
-                            mapArr?.map(item =>
-                            <OfferItem key={item._id}
-                                       item ={item}
-                            />
-                        )
-                    }
-                        </div>
+                        {loading
+                            ? <Preloader />
+                            : <>
+                                <h2 className="offers__title title">{`Motorcycle Helmets (${mapArr?.length})`}</h2>
+                                <div className="offers__items">
+                                    {
+                                        mapArr?.map(item =>
+                                            <OfferItem key={item._id}
+                                                item={item}
+                                            />
+                                        )
+                                    }
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
