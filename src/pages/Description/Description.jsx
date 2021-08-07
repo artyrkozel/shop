@@ -29,7 +29,6 @@ const Description = () => {
         }
          dispatch(actions.setNewItemToCart(cartItem))
          dispatch(actions.fetchCartItems())
-         //dispatch(actions.setBtnValue(true))
          dispatch(actions.fetchCartItems())
     }
 
@@ -37,15 +36,10 @@ const Description = () => {
         let uniqArr = cartItems.filter(el => el.title === item.title)
         if (uniqArr.length > 0) {
             dispatch(actions.setBtnValue(true))
-          // dispatch(actions.setBtnValue(false))
         } else {
             dispatch(actions.setBtnValue(false))
         }
     },[cartItems, item.title, dispatch])
-    
-    // useEffect(() => {
-    //     dispatch(actions.fetchCartItems())
-    // },[dispatch])
     
     if (item === undefined || item === null) return <Loader />
     return (

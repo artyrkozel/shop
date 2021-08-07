@@ -5,10 +5,11 @@ import plus from '../../images/plus.png'
 const Counter = ({count, countHandlerMinus, countHandler}) => {
 
     const [counter, setCounter] = useState(count)
-
     const countHandlerMinusLocal = () => {
-        setCounter(prev => prev  - 1 )
-        countHandlerMinus(counter)
+        if(counter > 1){
+            setCounter(prev => prev  - 1 )
+            countHandlerMinus(counter)
+        }
     }
 
     const countHandlerPlusLocal = () => {
@@ -21,7 +22,7 @@ const Counter = ({count, countHandlerMinus, countHandler}) => {
             <button className="counter__button" onClick={countHandlerMinusLocal}>
                 <img src={minus} alt="minus"/>
             </button>
-            <input type="text" readOnly className="counter__field" defaultValue="1" value={counter}/>
+            <input type="text" readOnly className="counter__field" defaultValue="1" value={counter}  min="0"/>
             <button className="counter__button" onClick={countHandlerPlusLocal}><img src={plus} alt="minus"/></button>
         </div>
     )

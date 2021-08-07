@@ -13,13 +13,13 @@ const Categories = () => {
     const dispatch = useDispatch()
 
     const [price, setPrice] = useState(JSON.parse(localStorage.getItem('price')) || [100, 450])
+    console.log(price)
     const [filterActive, setFilterActive] = useState(false)
     const [loading, setLoading] = useState(false)
     const [typeFilter, setTypeFilter] = useState([])
-    
+    console.log( typeFilter)
     const items = useSelector(getMovieList)
     const filteredArr = useSelector(getFilteredArr)
-
     let mapArr = filteredArr?.length !== 0 && filteredArr !== undefined && filterActive ? filteredArr : items
 
     const typeHandler = useCallback((state) => {
@@ -33,7 +33,7 @@ const Categories = () => {
         })
         setTypeFilter(filters)
     }, [])
-    
+
     const loadingHandler = () => {
         setLoading(true)
         setTimeout(() => {
@@ -60,7 +60,7 @@ const Categories = () => {
 
     // const filterByType = useCallback(() => {
     //     let resultArr = []
-    //     items?.forEach(el => {
+    //     filteredArr?.forEach(el => {
     //         for(let i = 0; i < typeFilter.length; i++){
     //            if(el.type === typeFilter[i]){
     //                resultArr.push(el)
@@ -73,7 +73,7 @@ const Categories = () => {
 
     // useEffect(() => {
     //     filterByType()
-    // }, [typeFilter, dispatch, filterByType])
+    // }, [typeFilterActive])
     return (
         <div className="categories">
             <div className="container">

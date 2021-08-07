@@ -43,7 +43,7 @@ const CartItem = ({item}) => {
                 </div>
             </div>
             <div className="cart__item-settings item-settings">
-                <button className="item-settings__delete-btn item-settings__delete-btn-hover" onClick={() => deleteItemHandler()}><DeleteIcon fontSize="small"/></button>
+                <button className="item-settings__delete-btn item-settings__delete-btn-hover" onClick={deleteItemHandler}><DeleteIcon fontSize="small"/></button>
                 <div className="item-settings__counter">
                     <Counter countHandler={countHandler} countHandlerMinus={countHandlerMinus} count={item.count}/>
                 </div>

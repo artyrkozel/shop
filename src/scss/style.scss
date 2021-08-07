@@ -742,7 +742,7 @@
     color: $LinkActive;
   }
   &__link-active{
-    &__link:hover{
+    &:hover{
       text-decoration: underline;
     }
   }
@@ -783,6 +783,11 @@
     color: #ff4f37;
     text-transform: uppercase;
     font-weight: 700;
+    transition: .4s;
+    &:hover{
+      background-color: #eee;
+    }
+
   }
 }
 

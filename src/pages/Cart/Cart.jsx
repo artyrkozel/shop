@@ -12,6 +12,7 @@ const Cart = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const cartItems = useSelector(getCartItems)
+
     useEffect(() => {
         loadingHandler()
         dispatch(actions.fetchCartItems())
@@ -23,10 +24,6 @@ const Cart = () => {
             setLoading(false)
         }, 1000)
     }
-
-    useEffect(() => {
-        localStorage.setItem('cartCount', JSON.stringify(cartItems.length))
-    }, [cartItems])
 
     useEffect(() => {
         let result = cartItems.reduce((acc, item) => {

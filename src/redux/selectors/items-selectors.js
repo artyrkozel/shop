@@ -32,3 +32,7 @@ export const getInitializeValue = (state) => {
 export const getBtnValue = (state) => {
     return state.app.btnType
 }
+
+export const getTotalCount = (state) => {
+    return state.cart.totalCount
+} 

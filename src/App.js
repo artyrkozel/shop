@@ -1,6 +1,6 @@
 import React from 'react'
 import './scss/style.scss'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import Description from "./pages/Description/Description";
 import Cart from "./pages/Cart/Cart";
 import Main from "./pages/Main/Main";
@@ -17,6 +17,9 @@ const App = () => {
         <div className="app">
             <Header />
             <Switch>
+            <Route exact path="/">
+                      <Redirect to="/main" />
+                  </Route>
                 <Route path='/categories' render={() => <Categories />} />
                 <Route path='/description/id=:id' render={() => <Description />} />
                 <Route path='/cart' render={() => <Cart />} />

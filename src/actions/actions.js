@@ -18,5 +18,6 @@ export const actions = {
     isFetchingHandler: (value) => ({type: 'CHANGE_FEATCHING', value}),
     setFilteredItems: (filteredItems) => ({type: 'SET_FILTERED_ITEMS', filteredItems}),
     setDecriptionItem: (item) => ({type: 'SET_DESC_ITEM', item}),
-    setBtnValue: (value) => ({type: 'SET_BTN_VALUE', value})
+    setBtnValue: (value) => ({type: 'SET_BTN_VALUE', value}),
+    setCartTotal: (value) => ({type: 'SET_CART_TOTAL', value}),
 }

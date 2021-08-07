@@ -1,10 +1,17 @@
+import { actions } from 'actions/actions'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 const Slide = ({ slide }) => {
 
-    const addToStorage = () => {
-        localStorage.setItem('desc', JSON.stringify(slide))
+    // const addToStorage = () => {
+    //     localStorage.setItem('desc', JSON.stringify(slide))
+    // }
+
+    const dispatch = useDispatch()
+    const setDiscr = () => {
+        dispatch(actions.setDecriptionItem(slide))
     }
     
     return (
@@ -18,7 +25,7 @@ const Slide = ({ slide }) => {
                 </p>
                 <div className="main__btn-block">
                     <button className="main__btn-block-item btn">Price  ${slide.price}</button>
-                    <NavLink className="main__btn-block-item btn" to={'/description/id=' + slide._id} onClick={addToStorage}>View product</NavLink>
+                    <NavLink className="main__btn-block-item btn" to={'/description/id=' + slide._id} onClick={setDiscr}>View product</NavLink>
                 </div>
             </div>
             <div className="main__info-img">

@@ -26,8 +26,14 @@ const cartReducer = (state = initialState, action) => {
         case 'CHANGE_PRICE':
             return {
                 ...state,
-                cart: state.cart.map(el => el._id === action.id ? {...el, count: action.newCounter} : el)
+                cart: state.cart.map(el => el._id === action.id ? { ...el, count: action.newCounter } : el)
             }
+        case 'SET_CART_TOTAL':
+            return {
+                ...state,
+                totalCount: action.value
+            }
+        
         default:
             return state
     }
