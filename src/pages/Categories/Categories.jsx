@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getFilteredArr, getMovieList } from "../../redux/selectors/items-selectors";
+import { getFilteredArr, getItemsList } from "../../redux/selectors/items-selectors";
 import OfferItem from "../../components/Offer/OfferItem";
 import RangeSlider from "../../common/Range/Range";
 import Accordiont from 'common/Accordeon/Accordion';
@@ -15,7 +15,7 @@ const Categories = () => {
     const [filterActive, setFilterActive] = useState(false)
     const [loading, setLoading] = useState(false)
     const [typeFilter, setTypeFilter] = useState([])
-    const items = useSelector(getMovieList)
+    const items = useSelector(getItemsList)
     const filteredArr = useSelector(getFilteredArr)
 
     let mapArr = filteredArr?.length !== 0 && filteredArr !== undefined && filterActive ? filteredArr : items

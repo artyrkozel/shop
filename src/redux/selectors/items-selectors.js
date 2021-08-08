@@ -1,5 +1,5 @@
 
-export const getMovieList = (state) => state.items.items
+export const getItemsList = (state) => state.items.items
 
 export const getItem = (state) => {
     return state.items.descriptionItem
@@ -23,10 +23,6 @@ export const getIsFeatchingValue = (state) => {
 
 export const getFilteredArr = (state) => {
     return state.items.filteredItems
-}
-
-export const getInitializeValue = (state) => {
-    return state.app.initialize
 }
 
 export const getBtnValue = (state) => {

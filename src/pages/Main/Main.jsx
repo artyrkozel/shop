@@ -7,14 +7,14 @@ import brand3 from '../../common/images/brand3.png'
 import brand4 from '../../common/images/brand4.png'
 import brand5 from '../../common/images/brand5.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { getArticles, getMovieList } from '../../redux/selectors/items-selectors';
+import { getArticles, getItemsList } from '../../redux/selectors/items-selectors';
 import Slide from 'common/Slide/Slide';
 import BlogItem from 'common/BlogItem/BlogItem';
 import { NavLink } from 'react-router-dom';
 import { actions } from 'actions/actions';
 
 const Main = () => {
-    const items = useSelector(getMovieList)
+    const items = useSelector(getItemsList)
     const articles = useSelector(getArticles)
     const dispatch = useDispatch()
     

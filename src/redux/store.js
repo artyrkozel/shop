@@ -21,5 +21,6 @@ SagaMiddleware.run(rootWatcher)
 
 export default store
 
+// @ts-ignore
 window.store = store;
 

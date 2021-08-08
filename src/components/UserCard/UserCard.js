@@ -19,7 +19,7 @@ const UserCard = () => {
         <div className="card">
             <div className="card__btn">
                 <NavLink className="card__btn-btn" to={"/cart"}><ShoppingCartIcon className="icon"/></NavLink>
-                <span className="card__btn-count">{totalCount !== 0 ? totalCount : ''}</span>
+                {totalCount !==0 ? <span className="card__btn-count">{totalCount}</span> : ''}
             </div>
         </div>
 
